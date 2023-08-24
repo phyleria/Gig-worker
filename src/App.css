@@ -1,38 +1,110 @@
-.App {
+/* App.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.App-header {
+  background-color: #dadad0;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Home Section */
+.home-section {
+  background-color: #894e8a;
+  color: white;
+  padding: 60px 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.home-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.home-text h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.home-text p {
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.home-images {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin-top: 40px;
+}
+
+.home-images img {
+  width: 30%;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Payment Section */
+.payment-section {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.payment-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.payment-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.payment-form input,
+.payment-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.payment-form button {
+  background-color: #894e8a;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.payment-link p {
+  margin-top: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.payment-link a {
+  display: block;
+  color: #894e8a;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .home-images {
+    flex-direction: column;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .home-images img {
+    width: 60%;
+    margin-top: 20px;
   }
 }

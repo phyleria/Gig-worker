@@ -7,14 +7,6 @@ body {
   padding: 0;
 }
 
-/* Header */
-.App-header {
-  background-color: #dadad0;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
 /* Home Section */
 .home-section {
   background-color: #894e8a;
@@ -60,7 +52,7 @@ body {
 }
 
 .payment-form {
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto;
 }
 
@@ -107,4 +99,18 @@ body {
     width: 60%;
     margin-top: 20px;
   }
+}
+
+.success-message {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text color */
+  padding: 2px; /* Padding for the message */
+  border-radius: 5px; /* Rounded corners */
+  text-align: center; /* Center-align text */
+  margin-top: 10px; /* Add margin to separate from the button */
+}
+
+.success-text {
+  font-size: 18px; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
 }

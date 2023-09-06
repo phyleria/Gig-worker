@@ -5,17 +5,34 @@ import "./App.css";
 function App() {
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("bank");
-  const [paymentLink, setPaymentLink] = useState("");
+  const [requestSuccessful, setRequestSuccessful] = useState(false);
 
   const handlePaymentRequest = async () => {
-    // ... Your existing payment request code ...
+    console.log("handlePaymentRequest called");
+    const options = {
+      method: "POST",
+      url: "https://api-v2-sandbox.chimoney.io/v0.2/payment/initiate",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        "X-API-KEY":
+          "fe4d62c2ae22036e842bc433b8f2c70d192b1e274564fc0a9e83cf8b9b4e0a9a",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        setRequestSuccessful(true);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>GigPay Pro</h1>
-      </header>
       <section className="home-section">
         <div className="home-content">
           <div className="home-text">
@@ -56,12 +73,9 @@ function App() {
             <option value="mobile_money">Mobile Money</option>
           </select>
           <button onClick={handlePaymentRequest}>Request Payment</button>
-          {paymentLink && (
-            <div className="payment-link">
-              <p>Payment Link:</p>
-              <a href={paymentLink} target="_blank" rel="noopener noreferrer">
-                {paymentLink}
-              </a>
+          {requestSuccessful && (
+            <div className="success-message">
+              <p>Payment request was successful!</p>
             </div>
           )}
         </div>

@@ -1,34 +1,37 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
+import "./node.js";
 
 function App() {
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("bank");
+  const [payerEmail, setPayerEmail] = useState("");
   const [requestSuccessful, setRequestSuccessful] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handlePaymentRequest = async () => {
-    console.log("handlePaymentRequest called");
-    const options = {
-      method: "POST",
-      url: "https://api-v2-sandbox.chimoney.io/v0.2/payment/initiate",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-        "X-API-KEY":
-          "fe4d62c2ae22036e842bc433b8f2c70d192b1e274564fc0a9e83cf8b9b4e0a9a",
-      },
-    };
+    if (!amount || !payerEmail) {
+      setErrorMessage("Please fill in all required fields.");
+      return;
+    }
 
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-        setRequestSuccessful(true);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/send-payment-link",
+        {
+          amount: amount,
+          payerEmail: payerEmail,
+        }
+      );
+
+      console.log("Payment request successful:", response.data);
+      setRequestSuccessful(true);
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Error making payment request:", error.response.data);
+      setErrorMessage("An error occurred while processing your request.");
+    }
   };
 
   return (
@@ -63,16 +66,23 @@ function App() {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
+          <label>Payer's Email:</label>
+          <input
+            type="email"
+            value={payerEmail}
+            onChange={(e) => setPayerEmail(e.target.value)}
+          />
           <label>Payment Method:</label>
           <select
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
           >
-            <option value="bank">Bank</option>
-            <option value="digital_wallet">Digital Wallet</option>
+            <option value="bank">Bank Deposit</option>
+            <option value="digital_wallet">Chimoney Wallet</option>
             <option value="mobile_money">Mobile Money</option>
           </select>
           <button onClick={handlePaymentRequest}>Request Payment</button>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
           {requestSuccessful && (
             <div className="success-message">
               <p>Payment request was successful!</p>

@@ -114,3 +114,7 @@ body {
   font-size: 18px; /* Adjust the font size */
   font-weight: bold; /* Make the text bold */
 }
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
